@@ -43,3 +43,111 @@ public class MemberDTO {
 - 추가로, static한 것들만 호출 가능
 
 # Pass by value, Pass by reference
+- Pass by Value의 경우 값을 전달한다는 뜻으로, 원래 값은 놔두고, 전달되는 값이 진짜인 것처럼 보이게 한다.
+그래서 매개 변수를 받은 메소드에서 그 값을 바꾸어도 원래의 값은 변하지 않는다. 기본 자료형은 무조건 Pass by Value로 데이터를 전달
+```java
+public class ReferencePass {
+	public static void main(String[] args) {
+		ReferencePass reference = new ReferencePass();
+		reference.callPassByValue();
+	}
+
+	private void callPassByValue() {
+		int a = 10;
+		String b = "b";
+		System.out.println("before passByValue");
+		System.out.println("a=" + a);
+		System.out.println("b=" + b);
+		passByValue(a, b);
+		System.out.println("after passByValue");
+		System.out.println("a=" + a);
+		System.out.println("b=" + b);
+
+	}
+
+	private void passByValue(int a, String b) {
+		a = 20;
+		b = "z";
+		System.out.println("in passByValue");
+		System.out.println("a=" + a);
+		System.out.println("b=" + b);
+	}
+}
+```
+```text
+before passByValue
+a=10
+b=b
+in passByValue
+a=20
+b=z
+after passByValue
+a=10
+b=b
+```
+- 여기서 String은 참조 자료형인데, 값이 바뀐 변경되지 않은 이유는, String의 경우 큰 따옴표로 할당하면 new를 사용하여 객체를
+생성한 것과 같다. String이 아닌 다른 참조 자료형들도, 호출된 메소드에서 다른 객체로 대체하여 처리한다면, 값이 변경되지 않는다.
+- String이 아닌 참조 자료형의 경우, 매개 변수로 받은 참조 자료형 안에 있는 객체를 변경하면, 호출한 참조 자료형 안에 있는 객체는
+호출된 메소드에서도 변경이 된다. 이를 Pass by Reference라고 한다.
+
+```java
+package vol1._8;
+
+public class ReferencePass {
+	public static void main(String[] args) {
+		ReferencePass reference = new ReferencePass();
+		// reference.callPassByValue();
+		reference.callPassByReference();
+	}
+
+    // ...
+	public void callPassByReference() {
+		MemberDTO member1 = new MemberDTO("Sangmin");
+		System.out.println("Before passByReference");
+		System.out.println("member.getName() = " + member1.getName());
+		passByReference(member1);
+		System.out.println("After passByReference");
+		System.out.println("member.getName() = " + member1.getName());
+	}
+
+	private void passByReference(MemberDTO member) {
+		member.name = "Kim";
+		System.out.println("in passByReference");
+		System.out.println("member.getName() = " + member.getName());
+	}
+}
+```
+```text
+Before passByReference
+member.getName() = Sangmin
+in passByReference
+member.getName() = Kim
+After passByReference
+member.getName() = Kim
+```
+- 하지만 자바는 Pass by Value 이다. 무슨 말일까? 
+- 위 passByReference() 메소드 아래에 코드 한줄을 추가하고 실행해보았다.
+```java
+private void passByReference(MemberDTO member) {
+    member.name = "Kim";
+    System.out.println("in passByReference");
+    System.out.println("member.getName() = " + member.getName());
+    member = new MemberDTO("Lee");
+}
+```
+```text
+Before passByReference
+member.getName() = Sangmin
+in passByReference
+member.getName() = Kim
+After passByReference
+member.getName() = Kim
+```
+- new로 새로운 객체를 생성해 Lee로 바꾼 결과는 해당 메소드를 호출한 메소드에서는 무시되었다.
+- 위 코드에서 MemberDTO reference 타입이 passByReference에 member1라는 이름으로 넘어간다. 
+- 이렇게 되면 member1의 객체 위치를 가리키는 정확한 복사본이 힙 메모리에 생기게 된다. (모든 객체는 힙 메모리에 저장됨)  
+위 코드에서는 passByReference() 내의 member.
+- 따라서 passByReference() 메소드에서 member 내의 객체를 변경하게 되면 같은 값을 가리키기 때문에, 원래 호출한 메소드 내에서도
+값이 변경되는 것이다.
+- 여기서, 만약 `member = new MemberDTO("Lee");`와 같이 새로운 객체를 할당하게 되면 같은 힙 메모리를 가리키던 것이 
+새로운 객체를 가리키게 되어 변경값이 반영되지 않는 것이다.
