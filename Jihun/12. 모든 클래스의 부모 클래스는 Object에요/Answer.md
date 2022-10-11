@@ -19,3 +19,4 @@
 한다.
 - 두 객체를 equals() 메소드를 사용하여 비교한 결과 false를 리턴했다고 해서, hashCode() 메소드를 호출한 int 값이 무조건 달라야 할 필요는 없다.
 하지만, 이 경우에 서로 다른 int 값을 제공하면 hashtable 의 성능을 향상시키는 데 도움이 된다.
+- https://velog.io/@sonypark/Java-equals-hascode-%EB%A9%94%EC%84%9C%EB%93%9C%EB%8A%94-%EC%96%B8%EC%A0%9C-%EC%9E%AC%EC%A0%95%EC%9D%98%ED%95%B4%EC%95%BC-%ED%95%A0%EA%B9%8C
