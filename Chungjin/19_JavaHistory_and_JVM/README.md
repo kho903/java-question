@@ -5,12 +5,12 @@
 ![JAVA](https://user-images.githubusercontent.com/46278436/195395892-aa85750a-945f-44e3-9820-5335a69bd170.PNG)
 
 [참조](https://docs.oracle.com/javase/8/docs/index.html)
-자바의
+
 
 
 <br><br>
 
-◼ 언어의 특징은 다음과 같다.
+◼ 자바 언어의 특징은 다음과 같다.
 
 ### ◼ 자바 언어의 특징
 
