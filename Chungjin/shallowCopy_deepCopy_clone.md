@@ -92,11 +92,13 @@ public class DeepCopyMain{
 > learn four methods to implement the deep copy.
 1. Copy constructor
 2. Cloneable Interface
+
 "To achieve a deep copy. we can serialize an object and then deserialize it to a new object"
+
 3. Apache commons Lang
 4. JSON Serialization with gson / Json Serialization with Jackson
 
 > Maven dependencies
-- gson
-- commons-lang
-- jackson-databind
+> + gson
+> + commons-lang
+> + jackson-databind
